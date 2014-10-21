@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="layered">
+    <div class="layerLeft layer" ng-mouseleave="layerLeave('left')" ng-mouseover="layerOvered('left')" ng-click="showLayer('left')"></div>
+    <div class="layerRight layer" ng-mouseleave="layerLeave('right')" ng-mouseover="layerOvered('right')" ng-click="showLayer('right')"></div>
+    <videogular vg-player-ready="onPlayerReady" vg-complete="onCompleteVideo" vg-update-time="onUpdateTime" vg-update-size="onUpdateSize" vg-update-volume="onUpdateVolume" vg-update-state="onUpdateState" vg-width="config.width" vg-height="config.height" vg-theme="config.theme.url" vg-autoplay="config.autoPlay" vg-stretch="config.stretch.value" vg-responsive="true">
+      <video vg-src="config.sources" preload='metadata'></video>
+
+      <vg-youtube></vg-youtube>
+      <vg-poster-image vg-url='config.plugins.poster.url' vg-stretch="config.stretch.value"></vg-poster-image>
+      <vg-buffering></vg-buffering>
+      <vg-overlay-play vg-play-icon="config.theme.playIcon"></vg-overlay-play>
+
+      <vg-controls vg-autohide="config.autoHide" vg-autohide-time="config.autoHideTime" style="height: 50px;">
+        <vg-play-pause-button></vg-play-pause-button>
+        <vg-timeDisplay>{{ currentTime }}</vg-timeDisplay>
+        <vg-scrubBar>
+          <vg-scrubbarcurrenttime></vg-scrubbarcurrenttime>
+        </vg-scrubBar>
+        <vg-timeDisplay>{{ totalTime }}</vg-timeDisplay>
+        <vg-volume>
+          <vg-mutebutton></vg-mutebutton>
+          <vg-volumebar></vg-volumebar>
+        </vg-volume>
+        <vg-fullscreenButton vg-enter-full-screen-icon="config.theme.enterFullScreenIcon" vg-exit-full-screen-icon="config.theme.exitFullScreenIcon"></vg-fullscreenButton>
+      </vg-controls>
+    </videogular>
+  </div>
+</div>
