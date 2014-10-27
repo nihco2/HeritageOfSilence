@@ -13,7 +13,7 @@ require('videogular-youtube');
 
 var MainCtrl = require('./controllers/main');
 
-angular.module('myApp', [
+angular.module('App', [
     "ngRoute",
     "com.2fdevs.videogular",
     "com.2fdevs.videogular.plugins.controls",

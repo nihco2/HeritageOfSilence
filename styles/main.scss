@@ -62,13 +62,16 @@
 .layerLeft:hover {
   transform: translateX(30%);
   -ms-transform: translateX(30%);
-  transition: all 1s ease-in-out;
+  transition: all .5s ease-in-out;
 }
 .layerRight:hover {
   transform: translateX(-30%);
   -ms-transform: translateX(-30%);
-  transition: all 1s ease-in-out;
+  transition: all .5s ease-in-out;
 }
 .overlayPlayContainer.addPictoLayer {
   background: url('../../../assets/images/Calque_Droite_RollOver.png') no-repeat center;
+}
+.invisible {
+  visibility: hidden;
 }

@@ -6,6 +6,7 @@ var gulp = require('gulp'),
   concat = require('gulp-concat'),
   rimraf = require('gulp-rimraf'),
   sass = require('gulp-sass'),
+  uglify = require('gulp-uglify'),
   autoprefixer = require('gulp-autoprefixer');
 
 // Modules for webserver and livereload
@@ -31,7 +32,7 @@ server.use(express.static('./dist'));
 });
 */
 // Dev task
-gulp.task('dev', ['clean', 'views', 'styles', 'bstyles', 'fonts', 'assets', 'lint', 'browserify'], function () {});
+gulp.task('dev', ['clean', 'views', 'styles', 'bstyles', 'fonts', 'assets', 'lint', 'browserify', 'uglify'], function () {});
 
 // Clean task
 gulp.task('clean', function () {
@@ -59,7 +60,6 @@ gulp.task('bstyles', function () {
 // Styles task
 gulp.task('styles', function () {
   gulp.src([
-      'styles/themes/default/videogular.css',
       'styles/*.scss'
     ])
     // The onerror handler prevents Gulp from crashing when you make a mistake in your SASS
@@ -145,9 +145,20 @@ gulp.task('browserify', function () {
         }
       }
     }))
+    .pipe(uglify({
+      mangle: false
+    }))
     .pipe(concat('bundle.js'))
     .pipe(gulp.dest('dist/js'))
+
 });
+
+gulp.task('uglify', function () {
+  gulp.src('dist/js/bundle.js')
+    .pipe(uglify())
+    .pipe(gulp.dest('dist/js'))
+});
+
 
 // Views task
 gulp.task('views', function () {
