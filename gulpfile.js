@@ -32,7 +32,7 @@ server.use(express.static('./dist'));
 });
 */
 // Dev task
-gulp.task('dev', ['clean', 'views', 'styles', 'bstyles', 'fonts', 'assets', 'lint', 'browserify', 'uglify'], function () {});
+gulp.task('dev', ['clean', 'views', 'styles', 'bstyles', 'fonts', 'assets', 'lint', 'browserify'], function () {});
 
 // Clean task
 gulp.task('clean', function () {
@@ -152,13 +152,6 @@ gulp.task('browserify', function () {
     .pipe(gulp.dest('dist/js'))
 
 });
-
-gulp.task('uglify', function () {
-  gulp.src('dist/js/bundle.js')
-    .pipe(uglify())
-    .pipe(gulp.dest('dist/js'))
-});
-
 
 // Views task
 gulp.task('views', function () {
