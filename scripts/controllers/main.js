@@ -62,6 +62,7 @@ var MainCtrl = function ($scope, $sce, $controls) {
   $scope.onPlayerReady = function (API) {
     $scope.API = API;
     console.log(API);
+    $scope.API.setSize($scope.config.width, $scope.config.height);
   };
 
   $scope.onCompleteVideo = function () {
@@ -113,17 +114,9 @@ var MainCtrl = function ($scope, $sce, $controls) {
     responsive: false,
     stretch: $scope.stretchModes[1],
     sources: [{
-        src: $sce.trustAsResourceUrl('assets/videos/teaser.mp4'),
-        type: "video/mp4"
-      }
-
-      /*{
-        src: $sce.trustAsResourceUrl("https://www.youtube.com/watch?v=DgzBz3ibnBA"),
-        type: "video/youtube"
-      },*/
-      //{src: $sce.trustAsResourceUrl("http://www.videogular.com/assets/videos/videogular.webm"), type: "video/webm"},
-      //{src: $sce.trustAsResourceUrl("http://www.videogular.com/assets/videos/videogular.ogg"), type: "video/ogg"}
-    ],
+      src: $sce.trustAsResourceUrl("https://www.youtube.com/watch?v=BKNxdipHcR8"),
+      type: "video/youtube"
+    }],
     transclude: true,
     theme: {
       url: "css/themes/default/videogular.css"
