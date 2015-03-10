@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 
-app.configure(function () {
+app.configure(function() {
   app.use(express.static(__dirname + '/')); // set the static files location
   app.use(express.logger('dev')); // log every request to the console
   app.use(express.bodyParser()); // pull information from html in POST
