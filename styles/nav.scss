@@ -1,0 +1,18 @@
+.navbar {
+  background: #333;
+  .nav {
+    width: 100%;
+    li {
+      cursor: pointer;
+      text-align: center;
+      &.dropdown:hover > ul.dropdown-menu {
+        display: block;
+      }
+      a {
+        color: #e8e9eb !important;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+    }
+  }
+}
