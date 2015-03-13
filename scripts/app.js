@@ -12,6 +12,8 @@ require('videogular-poster');
 require('videogular-youtube');
 
 var MainCtrl = require('./controllers/main');
+var NavCtrl = require('./controllers/nav');
+var PlayerCtrl = require('./controllers/player');
 
 angular.module('App', [
     "ngRoute",
@@ -23,7 +25,7 @@ angular.module('App', [
     "info.vietnamcode.nampnq.videogular.plugins.youtube"
   ])
   .config(
-    function ($routeProvider) {
+    function($routeProvider) {
       $routeProvider
         .when('/', {
           templateUrl: 'views/main.html',
@@ -35,3 +37,5 @@ angular.module('App', [
     }
   )
   .controller('MainCtrl', ['$scope', '$sce', MainCtrl])
+  .controller('NavCtrl', ['$scope', '$sce', NavCtrl])
+  .controller('PlayerCtrl', ['$scope', '$sce', PlayerCtrl]);

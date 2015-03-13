@@ -1,0 +1,74 @@
+.picto {
+  position: absolute;
+  bottom: 0;
+  margin-left: 75px;
+}
+.layered {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+.layerLeft {
+  background: #95ddd7 url('../../../assets/images/layerLeft.png') no-repeat right;
+  left: -100%;
+}
+.layerRight {
+  background: #f9aeae url('../../../assets/images/layerRight.png') no-repeat left;
+  left: 100%;
+}
+.layer {
+  position: absolute;
+  z-index: 4;
+  height: 100%;
+  width: 100%;
+  background-size: contain;
+  cursor: pointer;
+}
+.animateLayers.translateLeftToRight {
+  transform: translateX(100%) !important;
+  -ms-transform: translateX(100%) !important;
+  transition: all 1s ease-in-out !important;
+}
+.animateLayers.translateRightToLeft {
+  transform: translateX(-100%) !important;
+  -ms-transform: translateX(-100%) !important;
+  transition: all 1s ease-in-out !important;
+}
+.animateLayers.hideLayerLeft {
+  transform: translateX(0%) !important;
+  -ms-transform: translateX(0%) !important;
+  transition: all 1s ease-in-out !important;
+}
+.animateLayers.hideLayerRight {
+  transform: translateX(100%) !important;
+  -ms-transform: translateX(100%) !important;
+  transition: all 1s ease-in-out !important;
+}
+.animateLayers.translateRightToLeft {
+  transform: translateX(-100%) !important;
+  -ms-transform: translateX(-100%) !important;
+  transition: all 1.5s ease-in-out !important;
+}
+.layerLeft.animateLayers {
+  transform: translateX(15%);
+  -ms-transform: translateX(15%);
+  transition: all 1s ease-in-out;
+}
+.layerRight.animateLayers {
+  transform: translateX(-15%);
+  -ms-transform: translateX(-15%);
+  transition: all 1s ease-in-out;
+}
+.layerLeft:hover {
+  transform: translateX(30%);
+  -ms-transform: translateX(30%);
+  transition: all .5s ease-in-out;
+}
+.layerRight:hover {
+  transform: translateX(-30%);
+  -ms-transform: translateX(-30%);
+  transition: all .5s ease-in-out;
+}
+.overlayPlayContainer.addPictoLayer {
+  background: url('../../../assets/images/Calque_Droite_RollOver.png') no-repeat center;
+}
