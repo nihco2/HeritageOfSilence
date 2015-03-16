@@ -14,6 +14,8 @@ require('videogular-youtube');
 var MainCtrl = require('./controllers/main');
 var NavCtrl = require('./controllers/nav');
 var PlayerCtrl = require('./controllers/player');
+var FooterCtrl = require('./controllers/footer');
+var Factory = require('./factory');
 
 angular.module('App', [
     "ngRoute",
@@ -31,11 +33,17 @@ angular.module('App', [
           templateUrl: 'views/main.html',
           controller: 'MainCtrl'
         })
+        .when('/player', {
+          templateUrl: 'views/player.html',
+          controller: 'PlayerCtrl'
+        })
         .otherwise({
           redirectTo: '/'
         });
     }
   )
-  .controller('MainCtrl', ['$scope', '$sce', MainCtrl])
+  .factory('Factory', ['$http', '$q', Factory])
+  .controller('MainCtrl', ['$scope', '$http', 'Factory', MainCtrl])
   .controller('NavCtrl', ['$scope', '$sce', NavCtrl])
+  .controller('FooterCtrl', ['$scope', 'Factory', FooterCtrl])
   .controller('PlayerCtrl', ['$scope', '$sce', PlayerCtrl]);

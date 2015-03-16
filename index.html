@@ -50,8 +50,11 @@
     <div ng-include src="'views/nav.html'"></div>
   </header>
   <!-- Add your site or application content here -->
-  <div ng-view=""></div>
+  <main ng-view="main" class='content'></main>
 
+  <footer>
+    <div ng-include src="'views/footer.html'"></div>
+  </footer>
   <!-- build:js({.tmp,app}) scripts/scripts.js -->
   <script src="js/bundle.js"></script>
 

@@ -1,7 +1,54 @@
 @import 'nav';
 @import 'player';
+@import 'footer';
+$gray: #cdc1b1;
+$white:#f0ebe8;
+@font-face {
+  font-family: "BirchStd";
+  src: url('../../../assets/fonts/BirchStd.otf');
+}
+html, body {
+  height: 100%;
+}
 body {
   background: black;
+  main {
+    height: 100%;
+    background: url('../../../assets/images/bg_homepage.jpg') no-repeat;
+    background-size: cover;
+    section {
+      .homepage {
+        width: 300px;
+        margin: 0 auto;
+        padding-top: 30px;
+        color: $gray;
+        text-align: center;
+        h1, h2 {
+          font-size: 16px;
+          line-height: 25px;
+          strong {
+            color: $white;
+          }
+        }
+        .logo {
+          margin-top: 50px;
+        }
+        .start {
+          display: block;
+          width: 330px;
+          height: 60px;
+          background: url('../../../assets/images/btn_start.png') no-repeat;
+          margin: 60px 0 0 30px;
+          font-family: "BirchStd", Arial, sans-serif;
+          color: black;
+          font-size: 40px;
+          text-transform: uppercase;
+          line-height: 64px;
+          padding-left: 30px;
+        }
+      }
+    }
+  }
 }
 .invisible {
   visibility: hidden;

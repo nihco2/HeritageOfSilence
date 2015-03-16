@@ -1,5 +1,5 @@
 'use strict';
-var MainCtrl = function($scope, $sce, $controls) {
+var MainCtrl = function($scope, $http, $factory) {
 
 }
 

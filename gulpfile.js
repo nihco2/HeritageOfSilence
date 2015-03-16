@@ -197,9 +197,8 @@ gulp.task('watch', ['lint'], function() {
   gulp.watch(['**/*.html'], [
     'views'
   ]);
-  /*
+
   gulp.watch('./dist/**').on('change', refresh.changed);
-  gulp.watch('./dist/**').on('error', refresh.changed);*/
 
 });
 
