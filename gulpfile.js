@@ -32,10 +32,10 @@ server.use(express.static('./dist'));
 });
 */
 // Dev task
-gulp.task('dev', ['clean', 'views', 'styles', 'bstyles', 'fonts', 'assets', 'lint', 'browserify'], function() {});
+gulp.task('dev', ['clean', 'views', 'styles', 'bstyles', 'fonts', 'assets', 'lint', 'browserify'], function () {});
 
 // Clean task
-gulp.task('clean', function() {
+gulp.task('clean', function () {
   gulp.src('./dist/views', {
       read: false
     }) // much faster
@@ -45,26 +45,26 @@ gulp.task('clean', function() {
 });
 
 // JSHint task
-gulp.task('lint', function() {
+gulp.task('lint', function () {
   gulp.src('app/scripts/*.js')
     .pipe(jshint())
     .pipe(jshint.reporter('default'));
 });
 
 // bootstrap style
-gulp.task('bstyles', function() {
+gulp.task('bstyles', function () {
   gulp.src('bower_components/bootstrap/dist/css/bootstrap.min.css')
     .pipe(gulp.dest('dist/css/vendor/'));
 });
 
 // Styles task
-gulp.task('styles', function() {
+gulp.task('styles', function () {
   gulp.src([
       'styles/*.scss'
     ])
     // The onerror handler prevents Gulp from crashing when you make a mistake in your SASS
     .pipe(sass({
-      onError: function(e) {
+      onError: function (e) {
         console.log(e);
       }
     }))
@@ -75,7 +75,7 @@ gulp.task('styles', function() {
 });
 
 // fonts task
-gulp.task('fonts', function() {
+gulp.task('fonts', function () {
   gulp.src([
       'styles/themes/default/fonts/*'
     ])
@@ -83,13 +83,13 @@ gulp.task('fonts', function() {
 });
 
 // assets task
-gulp.task('assets', function() {
+gulp.task('assets', function () {
   gulp.src('assets/**/*')
     .pipe(gulp.dest('dist/assets/'));
 });
 
 // Browserify task
-gulp.task('browserify', function() {
+gulp.task('browserify', function () {
   // Single point of entry (make sure not to src ALL your files, browserify will figure it out)
   gulp.src(['scripts/app.js'])
     .pipe(browserify({
@@ -161,7 +161,7 @@ gulp.task('browserify', function() {
 });
 
 // Views task
-gulp.task('views', function() {
+gulp.task('views', function () {
   // Get our index.html
   gulp.src('index.html')
     // And put it in the dist folder
@@ -173,7 +173,7 @@ gulp.task('views', function() {
     .pipe(gulp.dest('dist/views/'));
 });
 
-gulp.task('watch', ['lint'], function() {
+gulp.task('watch', ['lint'], function () {
   // Start webserver
   server.listen(serverport);
 

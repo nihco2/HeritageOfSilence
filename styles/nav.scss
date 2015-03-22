@@ -3,30 +3,66 @@
   margin-bottom: 0;
   border: none;
   border-radius: 0;
-  height: 60px;
+  height: 70px;
+  font-size: 40px;
+  font-weight: 100;
   .nav {
     width: 100%;
+    a {
+      color: $gray;
+      display: block;
+      height: 60px;
+      line-height: 40px;
+      border-bottom: $gray 1px solid;
+      &:focus {
+        border: none;
+      }
+    }
     li {
       cursor: pointer;
       text-align: center;
+      height: 70px;
       &:hover {
-        background: #333;
+        background: $grayDark;
+        a {
+          color: $white !important;
+          border-bottom-color: $yellow;
+        }
+      }
+      &:focus {
+        border: none;
+      }
+      &.brand {
+        width: 140px;
       }
       &.dropdown:hover > ul.dropdown-menu {
         display: block;
-      }
-      a {
-        color: #e8e9eb !important;
-        text-transform: uppercase;
-        font-weight: bold;
-        display: block;
-        height: 70px;
+        li, a {
+          height: 95px;
+        }
+        a {
+          font-family: Arial;
+          color: $white;
+          padding: 3px 15px;
+          border: none;
+          line-height: 90px;
+          span {
+            line-height: 12px;
+            font-size: 12px;
+            text-align: left;
+            width: 160px;
+            padding: 0 10px;
+          }
+        }
+        img {
+          width: 120px;
+        }
       }
       .navbar-brand {
+        border: none;
         font-size: 0;
-        width: 90px;
-        background: url('../../../assets/images/header_logo.png') no-repeat -10px 10px;
-        background-size: contain;
+        width: 110px;
+        background: url('../../../assets/images/header_logo.png') no-repeat 0px 10px;
         height: 70px;
         padding-right: 30px;
       }
@@ -36,10 +72,13 @@
       background: black;
       border: none;
       padding: 0;
-      li a {
-        &:hover, &:focus {
-          background: #333;
-          border: none;
+      li {
+        background: $grayDark;
+        a {
+          &:hover, &:focus {
+            background: $black;
+            border: none;
+          }
         }
       }
     }

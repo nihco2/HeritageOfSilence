@@ -1,5 +1,5 @@
 'use strict';
-var PlayerCtrl = function($scope, $sce, $controls) {
+var PlayerCtrl = function ($scope, $sce, $routeParams, $controls) {
   $scope.currentTime = 0;
   $scope.totalTime = 0;
   $scope.state = null;
@@ -11,56 +11,7 @@ var PlayerCtrl = function($scope, $sce, $controls) {
   $scope.layersTime = 3;
   $scope.layerIsActive = false;
 
-  $scope.showLayer = function(direction) {
-    $scope.layerIsActive = !$scope.layerIsActive;
-  }
-
-  function showLayer(layer, opposite) {
-    $scope.API.pause();
-    angular.element('vg-buffering').addClass('hidden');
-    angular.element('vg-controls').addClass('hidden');
-  }
-
-  function hideLayer(layer, opposite) {
-    $scope.API.play();
-    angular.element('vg-buffering').removeClass('hidden');
-    angular.element('vg-controls').removeClass('hidden');
-  }
-
-  $scope.onPlayerReady = function(API) {
-    $scope.API = API;
-    console.log(API);
-    $scope.API.setSize($scope.config.width, $scope.config.height);
-  };
-
-  $scope.onCompleteVideo = function() {
-    $scope.isCompleted = true;
-  };
-
-  $scope.onUpdateState = function(state) {
-    $scope.state = state;
-  };
-
-  $scope.onUpdateTime = function(currentTime, totalTime) {
-    $scope.currentTime = currentTime;
-    $scope.totalTime = totalTime;
-    if (!$scope.pictosReady) {
-      injectPictos($scope.pictos);
-    }
-    if (currentTime > $scope.layersTime && !$scope.showLayers) {
-      $scope.showLayers = true;
-      angular.element('.layer').addClass('animateLayers')
-    }
-  };
-
-  $scope.onUpdateVolume = function(newVol) {
-    $scope.volume = newVol;
-  };
-
-  $scope.onUpdateSize = function(width, height) {
-    $scope.config.width = width;
-    $scope.config.height = height;
-  };
+  var self = this;
 
   $scope.stretchModes = [{
     label: "None",
@@ -73,18 +24,27 @@ var PlayerCtrl = function($scope, $sce, $controls) {
     value: "fill"
   }];
 
+  $scope.videos = [{
+    sources: [{
+      src: $sce.trustAsResourceUrl("assets/videos/ep_1.mp4"),
+      type: "video/mp4"
+    }]
+  }, {
+    sources: [{
+      src: $sce.trustAsResourceUrl("assets/videos/teaser.mp4"),
+      type: "video/mp4"
+    }]
+  }];
+
   $scope.config = {
     width: 740,
     height: 380,
     autoHide: true,
     autoHideTime: 1000,
-    autoPlay: false,
-    responsive: false,
+    autoPlay: true,
+    responsive: true,
     stretch: $scope.stretchModes[1],
-    sources: [{
-      src: $sce.trustAsResourceUrl("https://www.youtube.com/watch?v=BKNxdipHcR8"),
-      type: "video/youtube"
-    }],
+    sources: $scope.videos[0].sources,
     transclude: true,
     theme: {
       url: "css/themes/default/videogular.css"
@@ -107,24 +67,83 @@ var PlayerCtrl = function($scope, $sce, $controls) {
     url: 'assets/images/Repere2.png',
     timecode: 60,
     theme: 'war2'
-  }]
+  }];
 
-  $scope.changeSource = function() {
-    $scope.config.sources = [{
-        src: $sce.trustAsResourceUrl("https://www.youtube.com/watch?v=XslueHBNJYU"),
-        type: "video/youtube"
-      },
-      //{src: $sce.trustAsResourceUrl("http://www.videogular.com/assets/videos/big_buck_bunny_720p_stereo.ogg"), type: "video/ogg"}
-    ];
+  angular.element(document).ready(function () {
+    angular.element('footer').fadeOut();
+    console.log($routeParams.episode)
+    switch ($routeParams.episode) {
+    case 'ep1':
+      changeSource(0);
+      break;
+    default:
+      changeSource(1);
+      break;
+    }
+  });
+
+  $scope.showLayer = function (direction) {
+    $scope.layerIsActive = !$scope.layerIsActive;
+  }
+
+  function changeSource(index) {
+    $scope.config.sources = $scope.videos[index].sources;
   };
 
-  $scope.clickPicto = function() {
+  function showLayer(layer, opposite) {
+    angular.element('vg-buffering').addClass('hidden');
+    angular.element('vg-controls').addClass('hidden');
+  }
+
+  function hideLayer(layer, opposite) {
+    angular.element('vg-buffering').removeClass('hidden');
+    angular.element('vg-controls').removeClass('hidden');
+  }
+
+  $scope.onPlayerReady = function (API) {
+    $scope.API = API;
+    console.log(API);
+    $scope.API.setSize($scope.config.width, $scope.config.height);
+  };
+
+  $scope.onCompleteVideo = function () {
+    $scope.isCompleted = true;
+  };
+
+  $scope.onUpdateState = function (state) {
+    $scope.state = state;
+  };
+
+  $scope.onUpdateTime = function (currentTime, totalTime) {
+    $scope.currentTime = currentTime;
+    $scope.totalTime = totalTime;
+    if (!$scope.pictosReady) {
+      injectPictos($scope.pictos);
+    }
+    if (currentTime > $scope.layersTime && !$scope.showLayers) {
+      $scope.showLayers = true;
+      angular.element('.layer').addClass('animateLayers')
+    }
+  };
+
+  $scope.onUpdateVolume = function (newVol) {
+    $scope.volume = newVol;
+  };
+
+  $scope.onUpdateSize = function (width, height) {
+    $scope.config.width = width;
+    $scope.config.height = height;
+  };
+
+
+
+  $scope.clickPicto = function () {
 
   };
 
   function injectPictos(pictos) {
     $scope.pictosReady = true;
-    pictos.forEach(function(aPicto) {
+    pictos.forEach(function (aPicto) {
       var picto = new Image();
       var timecode = (aPicto.timecode / $scope.totalTime) * 100;
       picto.src = aPicto.url;

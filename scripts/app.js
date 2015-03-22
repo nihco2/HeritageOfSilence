@@ -27,13 +27,13 @@ angular.module('App', [
     "info.vietnamcode.nampnq.videogular.plugins.youtube"
   ])
   .config(
-    function($routeProvider) {
+    function ($routeProvider) {
       $routeProvider
         .when('/', {
           templateUrl: 'views/main.html',
           controller: 'MainCtrl'
         })
-        .when('/player', {
+        .when('/player/:episode', {
           templateUrl: 'views/player.html',
           controller: 'PlayerCtrl'
         })
@@ -44,6 +44,11 @@ angular.module('App', [
   )
   .factory('Factory', ['$http', '$q', Factory])
   .controller('MainCtrl', ['$scope', '$http', 'Factory', MainCtrl])
-  .controller('NavCtrl', ['$scope', '$sce', NavCtrl])
+  .controller('NavCtrl', ['$scope', 'Factory', NavCtrl])
   .controller('FooterCtrl', ['$scope', 'Factory', FooterCtrl])
-  .controller('PlayerCtrl', ['$scope', '$sce', PlayerCtrl]);
+  .controller('PlayerCtrl', ['$scope', '$sce', '$routeParams', PlayerCtrl])
+  .filter('unsafe', function ($sce) {
+    return function (val) {
+      return $sce.trustAsHtml(val);
+    };
+  });
