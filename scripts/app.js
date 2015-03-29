@@ -46,7 +46,7 @@ angular.module('App', [
   .controller('MainCtrl', ['$scope', '$http', 'Factory', MainCtrl])
   .controller('NavCtrl', ['$scope', 'Factory', NavCtrl])
   .controller('FooterCtrl', ['$scope', 'Factory', FooterCtrl])
-  .controller('PlayerCtrl', ['$scope', '$sce', '$routeParams', PlayerCtrl])
+  .controller('PlayerCtrl', ['$scope', '$sce', '$routeParams', 'Factory', PlayerCtrl])
   .filter('unsafe', function ($sce) {
     return function (val) {
       return $sce.trustAsHtml(val);

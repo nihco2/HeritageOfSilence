@@ -5,7 +5,7 @@ var NavCtrl = function ($scope, $factory) {
   promise.then(function (data) {
     $scope.episodes = data.episodes;
   }).catch(function (err) {
-    console.log(err)
+    console.log(err);
   });
 }
 module.exports = NavCtrl;

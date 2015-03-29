@@ -1,5 +1,5 @@
 'use strict';
-var FooterCtrl = function($scope, $factory) {
+var FooterCtrl = function ($scope, $factory) {
   var promise = $factory.getEpisodes();
 
   promise.then(function (data) {

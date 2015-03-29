@@ -32,7 +32,7 @@ server.use(express.static('./dist'));
 });
 */
 // Dev task
-gulp.task('dev', ['clean', 'views', 'styles', 'bstyles', 'fonts', 'assets', 'lint', 'browserify'], function () {});
+gulp.task('dev', ['clean', 'views', 'styles', 'bstyles', 'vstyles', 'fonts', 'assets', 'lint', 'browserify'], function () {});
 
 // Clean task
 gulp.task('clean', function () {
@@ -55,6 +55,12 @@ gulp.task('lint', function () {
 gulp.task('bstyles', function () {
   gulp.src('bower_components/bootstrap/dist/css/bootstrap.min.css')
     .pipe(gulp.dest('dist/css/vendor/'));
+});
+
+// videogular style
+gulp.task('vstyles', function () {
+  gulp.src('slyles/themes/default/')
+    .pipe(gulp.dest('dist/css/themes/default/'));
 });
 
 // Styles task

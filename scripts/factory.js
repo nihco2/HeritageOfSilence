@@ -1,13 +1,13 @@
 'use strict';
-var Factory = function($http, $q) {
+var Factory = function ($http, $q) {
   var deferred = $q.defer();
-  var data = $http.get('assets/assets.json').then(function(result) {
+  var data = $http.get('assets/assets.json').then(function (result) {
     deferred.resolve(result.data);
-  }, function(result) {
+  }, function (result) {
     deferred.reject('Error loading JSON');
   });
   var factory = {
-    getEpisodes: function() {
+    getEpisodes: function () {
       return deferred.promise;
     }
   }

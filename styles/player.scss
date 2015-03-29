@@ -8,16 +8,16 @@
   position: relative;
   height: 100%;
   overflow: hidden;
-  margin-top: 50px;
-}
-
-.layer {
-  position: absolute;
-  z-index: 4;
-  height: 100%;
-  width: 100%;
-  background-size: contain;
-  cursor: pointer;
+  margin-top: 20px;
+  .repere {
+    position: absolute;
+    left: 50%;
+    margin-left: -205px;
+    z-index: 2;
+    top: 50%;
+    margin-top: -300px;
+    display: none;
+  }
 }
 
 .overlayPlayContainer.addPictoLayer {

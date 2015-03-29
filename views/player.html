@@ -1,12 +1,11 @@
-<div data-ng-controller="PlayerCtrl" class="layered">
+<div class="layered">
+  <img class="repere" src="{{currentRepere}}" alt="{{currentTheme}}" />
   <videogular vg-player-ready="onPlayerReady" vg-complete="onCompleteVideo" vg-update-time="onUpdateTime" vg-update-size="onUpdateSize" vg-update-volume="onUpdateVolume" vg-update-state="onUpdateState" vg-width="config.width" vg-height="config.height" vg-theme="config.theme.url" vg-autoplay="config.autoPlay" vg-stretch="config.stretch.value" vg-responsive="true">
-    <video vg-src="config.sources" preload='metadata'></video>
-
+    <video vg-src="config.sources" preload='metadata' id="{{id}}"></video>
     <vg-youtube></vg-youtube>
     <vg-poster-image vg-url='config.plugins.poster.url' vg-stretch="config.stretch.value"></vg-poster-image>
     <vg-buffering></vg-buffering>
     <vg-overlay-play vg-play-icon="config.theme.playIcon"></vg-overlay-play>
-
     <vg-controls vg-autohide="config.autoHide" vg-autohide-time="config.autoHideTime" style="height: 50px;">
       <vg-play-pause-button></vg-play-pause-button>
       <vg-timeDisplay>{{ currentTime }}</vg-timeDisplay>

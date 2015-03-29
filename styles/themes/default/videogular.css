@@ -5,6 +5,7 @@
   font-weight: normal;
   font-style: normal;
 }
+
 videogular {
   position: relative;
   background-color: #000000;
@@ -17,17 +18,20 @@ videogular {
   -ms-user-select: none;
   user-select: none;
 }
+
 videogular.fullscreen {
   position: absolute;
   left: 0;
   top: 0;
 }
+
 videogular video {
   position: absolute;
   width: 100%;
   height: auto;
   z-index: 1;
 }
+
 .iconButton {
   color: #FFFFFF;
   font-family: 'icomoon';
@@ -49,9 +53,11 @@ vg-overlay-play {
   position: absolute;
   z-index: 3;
 }
+
 vg-overlay-play div.play:before {
   content: "\e000";
 }
+
 .overlayPlayContainer {
   font-size: 100px;
   width: 100%;
@@ -63,6 +69,7 @@ vg-overlay-play div.play:before {
   filter: alpha(opacity=60);
   opacity: 0.6;
 }
+
 .overlayPlayContainer div {
   vertical-align: middle;
   text-align: center;
@@ -78,6 +85,7 @@ vg-buffering {
   position: absolute;
   z-index: 4;
 }
+
 .bufferingContainer {
   width: 100%;
   position: absolute;
@@ -106,10 +114,12 @@ vg-buffering {
   -moz-animation: spin .5s infinite linear;
   -webkit-animation: spin .5s infinite linear;
 }
+
 .stop {
   -webkit-animation-play-state: paused;
   -moz-animation-play-state: paused;
 }
+
 @-moz-keyframes spin {
   0% {
     -moz-transform: rotate(0deg);
@@ -118,6 +128,7 @@ vg-buffering {
     -moz-transform: rotate(360deg);
   }
 }
+
 @-moz-keyframes spinoff {
   0% {
     -moz-transform: rotate(0deg);
@@ -126,6 +137,7 @@ vg-buffering {
     -moz-transform: rotate(-360deg);
   }
 }
+
 @-webkit-keyframes spin {
   0% {
     -webkit-transform: rotate(0deg);
@@ -134,6 +146,7 @@ vg-buffering {
     -webkit-transform: rotate(360deg);
   }
 }
+
 @-webkit-keyframes spinoff {
   0% {
     -webkit-transform: rotate(0deg);
@@ -152,6 +165,7 @@ vg-controls {
   position: absolute;
   z-index: 5;
 }
+
 vg-controls #controls-container {
   width: 100%;
   height: 50px;
@@ -162,13 +176,16 @@ vg-controls #controls-container {
   filter: alpha(opacity=50);
   opacity: 0.5;
 }
+
 vg-play-pause-button {
   display: table-cell;
   width: 50px;
   vertical-align: middle;
   text-align: center;
   cursor: pointer;
+  background: '../../../assets/images/bt_pause.png'
 }
+
 vg-timedisplay {
   color: #FFFFFF;
   display: table-cell;
@@ -179,24 +196,29 @@ vg-timedisplay {
   text-align: center;
   cursor: default;
 }
+
 .vgTimeDisplay {
   display: table-cell;
   font-family: Arial;
   font-size: 18px;
   width: auto;
 }
+
 vg-scrubbar {
   width: auto;
   display: table-cell;
   cursor: pointer;
 }
+
 vg-scrubBarCurrentTime {
   background-color: #FFFFFF;
   width: 100%;
-  height: 50px;
+  height: 5px;
+  margin-top: 22px;
   display: block;
   cursor: pointer;
 }
+
 vg-volume {
   display: table-cell;
   width: 50px;
@@ -204,6 +226,7 @@ vg-volume {
   text-align: center;
   cursor: pointer;
 }
+
 vg-volumebar {
   width: 50px;
   height: 100px;
@@ -216,13 +239,15 @@ vg-volumebar {
 }
 /* IE10 hack */
 
-@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+@media screen and (-ms-high-contrast: active),
+(-ms-high-contrast: none) {
   vg-volumebar {
     zoom: 1;
     filter: alpha(opacity=50);
     opacity: 0.5;
   }
 }
+
 vg-fullscreenButton {
   display: table-cell;
   width: 50px;
@@ -230,12 +255,14 @@ vg-fullscreenButton {
   text-align: center;
   cursor: pointer;
 }
+
 vg-volumebar .verticalVolumeBar {
   width: 50px;
   height: 100px;
   background-color: #000000;
   position: absolute;
 }
+
 vg-volumebar .volumeBackground {
   width: 20px;
   height: 70px;
@@ -244,17 +271,20 @@ vg-volumebar .volumeBackground {
   background-color: #222222;
   position: absolute;
 }
+
 vg-volumebar .volumeValue {
   width: 20px;
   height: 100%;
   background-color: #FFFFFF;
   position: absolute;
 }
+
 vg-volumebar .volumeClickArea {
   width: 20px;
   height: 100%;
   position: absolute;
 }
+
 vg-controls .hide-animation {
   animation: hideControlsAnimationFrames ease-out 0.5s;
   animation-iteration-count: 1;
@@ -281,6 +311,7 @@ vg-controls .hide-animation {
   -ms-animation-fill-mode: forwards;
   /*IE 10+*/
 }
+
 @keyframes hideControlsAnimationFrames {
   0% {
     left: 0px;
@@ -295,6 +326,7 @@ vg-controls .hide-animation {
     transform: rotate(0deg) scaleX(1) scaleY(1);
   }
 }
+
 @-moz-keyframes hideControlsAnimationFrames {
   0% {
     left: 0px;
@@ -309,6 +341,7 @@ vg-controls .hide-animation {
     -moz-transform: rotate(0deg) scaleX(1) scaleY(1);
   }
 }
+
 @-webkit-keyframes hideControlsAnimationFrames {
   0% {
     left: 0px;
@@ -323,6 +356,7 @@ vg-controls .hide-animation {
     -webkit-transform: rotate(0deg) scaleX(1) scaleY(1);
   }
 }
+
 @-o-keyframes hideControlsAnimationFrames {
   0% {
     left: 0px;
@@ -337,6 +371,7 @@ vg-controls .hide-animation {
     -o-transform: rotate(0deg) scaleX(1) scaleY(1);
   }
 }
+
 @-ms-keyframes hideControlsAnimationFrames {
   0% {
     left: 0px;
@@ -351,6 +386,7 @@ vg-controls .hide-animation {
     -ms-transform: rotate(0deg) scaleX(1) scaleY(1);
   }
 }
+
 vg-controls .show-animation {
   animation: showControlsAnimationFrames ease-out 0.5s;
   animation-iteration-count: 1;
@@ -377,6 +413,7 @@ vg-controls .show-animation {
   -ms-animation-fill-mode: forwards;
   /*IE 10+*/
 }
+
 @keyframes showControlsAnimationFrames {
   0% {
     left: 0px;
@@ -391,6 +428,7 @@ vg-controls .show-animation {
     transform: rotate(0deg) scaleX(1) scaleY(1);
   }
 }
+
 @-moz-keyframes showControlsAnimationFrames {
   0% {
     left: 0px;
@@ -405,6 +443,7 @@ vg-controls .show-animation {
     -moz-transform: rotate(0deg) scaleX(1) scaleY(1);
   }
 }
+
 @-webkit-keyframes showControlsAnimationFrames {
   0% {
     left: 0px;
@@ -419,6 +458,7 @@ vg-controls .show-animation {
     -webkit-transform: rotate(0deg) scaleX(1) scaleY(1);
   }
 }
+
 @-o-keyframes showControlsAnimationFrames {
   0% {
     left: 0px;
@@ -433,6 +473,7 @@ vg-controls .show-animation {
     -o-transform: rotate(0deg) scaleX(1) scaleY(1);
   }
 }
+
 @-ms-keyframes showControlsAnimationFrames {
   0% {
     left: 0px;
@@ -452,27 +493,35 @@ vg-controls .show-animation {
 vg-play-pause-button div.play:before {
   content: "\e000";
 }
+
 vg-play-pause-button div.pause:before {
   content: "\e001";
 }
+
 vg-mutebutton div.level3:before {
   content: "\e002";
 }
+
 vg-mutebutton div.level2:before {
   content: "\e003";
 }
+
 vg-mutebutton div.level1:before {
   content: "\e004";
 }
+
 vg-mutebutton div.level0:before {
   content: "\e005";
 }
+
 vg-mutebutton div.mute:before {
   content: "\e006";
 }
+
 vg-fullscreenButton div.enter:before {
   content: "\e007";
 }
+
 vg-fullscreenButton div.exit:before {
   content: "\e008";
 }
@@ -486,7 +535,9 @@ vg-poster-image {
   position: absolute;
   z-index: 2;
 }
-vg-poster-image img, vg-poster-image img.none {
+
+vg-poster-image img,
+vg-poster-image img.none {
   top: 0;
   bottom: 0;
   right: 0;
@@ -494,9 +545,11 @@ vg-poster-image img, vg-poster-image img.none {
   margin: auto;
   position: absolute;
 }
+
 vg-poster-image img.fit {
   width: 100%;
 }
+
 vg-poster-image img.fill {
   max-width: none;
   height: 100%;

@@ -17,6 +17,9 @@
       &:focus {
         border: none;
       }
+      &[data-active="false"] {
+        pointer-events: none;
+      }
     }
     li {
       cursor: pointer;
