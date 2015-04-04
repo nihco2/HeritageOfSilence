@@ -11,6 +11,7 @@ var PlayerCtrl = function ($scope, $sce, $routeParams, $factory, $controls) {
   $scope.pictosReady = false;
   $scope.layerIsActive = false;
   $scope.repereIsActive = false;
+  $scope.currentAnimation = '';
 
   $scope.stretchModes = [{
     label: "None",
@@ -37,9 +38,9 @@ var PlayerCtrl = function ($scope, $sce, $routeParams, $factory, $controls) {
 
   $scope.config = {
     width: 740,
-    height: 380,
+    height: 300,
     autoHide: true,
-    autoHideTime: 2000,
+    autoHideTime: 4000,
     autoPlay: true,
     responsive: true,
     stretch: $scope.stretchModes[1],
@@ -96,9 +97,9 @@ var PlayerCtrl = function ($scope, $sce, $routeParams, $factory, $controls) {
     $scope.currentTime = currentTime;
     $scope.totalTime = totalTime;
     $scope.reperes.every(function (repere, index) {
-      console.log(currentTime, repere.timecode, index);
       if (currentTime > repere.timecode && currentTime < repere.timecode + 7 && !$scope.repereIsActive) {
         $scope.currentTheme = repere.theme;
+        $scope.currentAnimation = repere.anim;
         $scope.currentRepere = repere.src;
         $scope.repereIsActive = true;
         $('.repere').fadeIn();
@@ -106,12 +107,12 @@ var PlayerCtrl = function ($scope, $sce, $routeParams, $factory, $controls) {
       } else if (currentTime < repere.timecode || currentTime > repere.timecode + 7) {
         if ($scope.repereIsActive && $scope.currentTheme != $scope.reperes[1].theme) {
           $('.repere').fadeOut();
-          $scope.currentRepere = '';
+          $scope.currentRepere = $scope.currentTheme = '';
           $scope.repereIsActive = false;
           return true;
         } else if ($scope.repereIsActive && $scope.currentTheme === $scope.reperes[1].theme && currentTime > $scope.reperes[1].timecode + 7) {
           $('.repere').fadeOut();
-          $scope.currentRepere = '';
+          $scope.currentRepere = $scope.currentTheme = '';
           $scope.repereIsActive = false;
           return true;
         }
@@ -137,24 +138,28 @@ var PlayerCtrl = function ($scope, $sce, $routeParams, $factory, $controls) {
     $scope.currentTheme = $(evt.currentTarget).data('theme');
     $scope.currentRepere = $(evt.currentTarget).data('src');
     $('.repere').fadeIn();
+    $('.layer').show();
   };
 
-
-  /*function showLayer(layer, opposite) {
+  $scope.showLayer = function (evt) {
+    $scope.layerIsActive = !$scope.layerIsActive;
+    $('#animation').prependTo('.layer').show();
+    $('#animation').get(0).play()
+    $('.repere').hide();
     angular.element('vg-buffering').addClass('hidden');
     angular.element('vg-controls').addClass('hidden');
+    $scope.API.pause();
   }
 
-  function hideLayer(layer, opposite) {
+  $scope.hideLayer = function (evt) {
+    $scope.layerIsActive = !$scope.layerIsActive;
+    $('#animation').prependTo('.layered').hide();
+    $('#animation').get(0).pause();
     angular.element('vg-buffering').removeClass('hidden');
     angular.element('vg-controls').removeClass('hidden');
-  }*/
-
-  $scope.showLayer = function (direction) {
-    $scope.layerIsActive = !$scope.layerIsActive;
+    $scope.API.play();
+    $('.repere').show();
   }
-
-
 
   $scope.injectPictos = function (pictos) {
     $scope.pictosReady = true;

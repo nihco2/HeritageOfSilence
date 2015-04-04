@@ -15,6 +15,7 @@ var MainCtrl = require('./controllers/main');
 var NavCtrl = require('./controllers/nav');
 var PlayerCtrl = require('./controllers/player');
 var FooterCtrl = require('./controllers/footer');
+var ModalCtrl = require('./controllers/modal');
 var Factory = require('./factory');
 
 angular.module('App', [
@@ -37,6 +38,18 @@ angular.module('App', [
           templateUrl: 'views/player.html',
           controller: 'PlayerCtrl'
         })
+        .when('/whoarethey', {
+          templateUrl: 'views/whoarethey.html',
+          controller: 'ModalCtrl'
+        })
+        .when('/about', {
+          templateUrl: 'views/about.html',
+          controller: 'ModalCtrl'
+        })
+        .when('/credits', {
+          templateUrl: 'views/credits.html',
+          controller: 'ModalCtrl'
+        })
         .otherwise({
           redirectTo: '/'
         });
@@ -46,6 +59,7 @@ angular.module('App', [
   .controller('MainCtrl', ['$scope', '$http', 'Factory', MainCtrl])
   .controller('NavCtrl', ['$scope', 'Factory', NavCtrl])
   .controller('FooterCtrl', ['$scope', 'Factory', FooterCtrl])
+  .controller('ModalCtrl', ['$scope', 'Factory', ModalCtrl])
   .controller('PlayerCtrl', ['$scope', '$sce', '$routeParams', 'Factory', PlayerCtrl])
   .filter('unsafe', function ($sce) {
     return function (val) {

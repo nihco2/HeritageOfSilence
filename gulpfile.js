@@ -32,17 +32,17 @@ server.use(express.static('./dist'));
 });
 */
 // Dev task
-gulp.task('dev', ['clean', 'views', 'styles', 'bstyles', 'vstyles', 'fonts', 'assets', 'lint', 'browserify'], function () {});
+gulp.task('dev', ['views', 'styles', 'bstyles', 'vstyles', 'fonts', 'assets', 'lint', 'browserify'], function () {});
 
 // Clean task
-gulp.task('clean', function () {
+/*gulp.task('clean', function () {
   gulp.src('./dist/views', {
       read: false
     }) // much faster
     .pipe(rimraf({
       force: true
     }));
-});
+});*/
 
 // JSHint task
 gulp.task('lint', function () {
@@ -174,7 +174,7 @@ gulp.task('views', function () {
     .pipe(gulp.dest('dist/'));
 
   // Any other view files from app/views
-  gulp.src('views/**/*')
+  gulp.src('views/**/*.html')
     // Will be put in the dist/views folder
     .pipe(gulp.dest('dist/views/'));
 });
@@ -204,7 +204,7 @@ gulp.task('watch', ['lint'], function () {
     'views'
   ]);
 
-  gulp.watch('./dist/**').on('change', refresh.changed);
+  //gulp.watch('./dist/**').on('change', refresh.changed);
 
 });
 
