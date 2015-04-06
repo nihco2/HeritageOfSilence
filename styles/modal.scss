@@ -5,6 +5,31 @@
   width: 100%;
   height: 100%;
   z-index: 1;
+  &#about {
+    &:before {
+      min-height: 550px;
+    }
+  }
+  &#credits {
+    &:before {
+      min-height: 1700px;
+    }
+  }
+  &#whoarethey {
+    &:before {
+      min-height: 1200px;
+    }
+  }
+  &:before {
+    content: '';
+    position: absolute;
+    background: url('../../../assets/images/texture.jpg') repeat-y;
+    background-size: cover;
+    width: 100%;
+    top: 128px;
+    z-index: -1;
+    height: 100%;
+  }
   section {
     width: 90%;
     margin: 20px auto;
@@ -133,5 +158,10 @@
         }
       }
     }
+  }
+  .block {
+    padding: 15px 15px;
+    margin-left: -15px;
+    width: 102%;
   }
 }

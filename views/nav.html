@@ -7,11 +7,11 @@
             <a class="navbar-brand" href="#">L'héritage du silence</a>
           </div>
         </li>
-        <li class="col-md-3 dropdown">
+        <li class="col-md-4 dropdown episodes">
           <a class="dropdown-toggle fontify" data-toggle="dropdown" role="button" aria-expanded="false">
             épisodes
           </a>
-          <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+          <ul class="dropdown-menu menu-episodes" role="menu" aria-labelledby="dropdownMenu1">
             <li role="presentation" ng-repeat="episode in episodes">
               <a role="menuitem" tabindex="-1" href="#/player/{{episode.id}}" data-active="{{episode.activate}}">
                 <img class="fl" ng-src="{{episode.activate && episode.on || episode.off}}" alt="{{episode.desc}}" />
@@ -23,24 +23,30 @@
             </li>
           </ul>
         </li>
-        <li class="col-md-3 dropdown">
+        <li class="col-md-3 dropdown reperes">
           <a class="dropdown-toggle fontify" data-toggle="dropdown" role="button" aria-expanded="false">
             100 ans de silence
           </a>
-          <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-            <li role="presentation">
-              <a role="menuitem" tabindex="-1" href="#">Action</a>
+          <ul class="dropdown-menu menu-reperes" role="menu" aria-labelledby="dropdownMenu1">
+            <li role="presentation" ng-repeat="repere in reperes" ng-mouseenter="onMouseOver($event)" ng-mouseleave="onMouseLeave($event)">
+              <a role="menuitem" tabindex="-1" href="#/reperes/{{repere.title}}">
+                <img src="{{repere.picto}}" class="repere-picto" />
+                <img src="{{repere.pictoover}}" class="repere-picto hidden" />
+                <img src="{{repere.text}}" class="repere-text" />
+                <img src="{{repere.textover}}" class="repere-text hidden" />
+              </a>
+            </li>
           </ul>
-          </li>
-          <li class="col-md-2">
-            <a class="fontify" href="#/whoarethey">Qui sont-ils</a>
-          </li>
-          <li class="col-md-2">
-            <a class="fontify" href="#/about">En savoir plus</a>
-          </li>
-          <li class="col-md-1">
-            <a class="fontify" href="#/credits">Crédits</a>
-          </li>
+        </li>
+        <li class="col-md-2">
+          <a class="fontify" href="#/whoarethey">Qui sont-ils</a>
+        </li>
+        <li class="col-md-2">
+          <a class="fontify" href="#/about">En savoir plus</a>
+        </li>
+        <li class="col-md-1">
+          <a class="fontify" href="#/credits">Crédits</a>
+        </li>
       </ul>
     </div>
     <!-- /.navbar-collapse -->

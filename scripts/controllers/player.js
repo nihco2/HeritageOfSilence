@@ -43,7 +43,7 @@ var PlayerCtrl = function ($scope, $sce, $routeParams, $factory, $controls) {
     autoHideTime: 4000,
     autoPlay: true,
     responsive: true,
-    stretch: $scope.stretchModes[1],
+    stretch: $scope.stretchModes[0],
     sources: $scope.videos[0].sources,
     transclude: true,
     theme: {
