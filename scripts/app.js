@@ -17,6 +17,7 @@ var PlayerCtrl = require('./controllers/player');
 var FooterCtrl = require('./controllers/footer');
 var ModalCtrl = require('./controllers/modal');
 var RepereCtrl = require('./controllers/repere');
+var IntroCtrl = require('./controllers/intro');
 var Factory = require('./factory');
 
 angular.module('App', [
@@ -43,6 +44,10 @@ angular.module('App', [
           templateUrl: 'views/player.html',
           controller: 'RepereCtrl'
         })
+        .when('/intro', {
+          templateUrl: 'views/player.html',
+          controller: 'IntroCtrl'
+        })
         .when('/whoarethey', {
           templateUrl: 'views/whoarethey.html',
           controller: 'ModalCtrl'
@@ -65,8 +70,9 @@ angular.module('App', [
   .controller('NavCtrl', ['$scope', 'Factory', NavCtrl])
   .controller('FooterCtrl', ['$scope', 'Factory', FooterCtrl])
   .controller('ModalCtrl', ['$scope', 'Factory', ModalCtrl])
-  .controller('PlayerCtrl', ['$scope', '$sce', '$routeParams', 'Factory', PlayerCtrl])
-  .controller('RepereCtrl', ['$scope', '$sce', '$routeParams', 'Factory', RepereCtrl])
+  .controller('PlayerCtrl', ['$scope', '$sce', '$routeParams', 'Factory', '$rootScope', PlayerCtrl])
+  .controller('RepereCtrl', ['$scope', '$sce', '$routeParams', 'Factory', '$rootScope', RepereCtrl])
+  .controller('IntroCtrl', ['$scope', '$sce', '$routeParams', '$rootScope', IntroCtrl])
   .filter('unsafe', function ($sce) {
     return function (val) {
       return $sce.trustAsHtml(val);

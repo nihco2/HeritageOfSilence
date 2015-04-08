@@ -17,6 +17,12 @@ footer {
         position: relative;
         display: inline-block;
         margin: 5px;
+        a {
+          cursor: pointer;
+          &[data-active="false"] {
+            pointer-events: none;
+          }
+        }
         &:hover {
           .desc {
             opacity: 1;

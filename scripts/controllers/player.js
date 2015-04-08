@@ -1,5 +1,5 @@
 'use strict';
-var PlayerCtrl = function ($scope, $sce, $routeParams, $factory, $controls) {
+var PlayerCtrl = function ($scope, $sce, $routeParams, $factory, $rootScope) {
   var self = this,
     promise = $factory.getEpisodes();
 
@@ -26,8 +26,8 @@ var PlayerCtrl = function ($scope, $sce, $routeParams, $factory, $controls) {
 
   $scope.videos = [{
     sources: [{
-      src: $sce.trustAsResourceUrl("assets/videos/ep_1.mp4"),
-      type: "video/mp4"
+      src: $sce.trustAsResourceUrl("https://www.youtube.com/watch?v=tm-lPipFtRc"),
+      type: "video/youtube"
     }]
   }, {
     sources: [{
@@ -43,19 +43,11 @@ var PlayerCtrl = function ($scope, $sce, $routeParams, $factory, $controls) {
     autoHideTime: 4000,
     autoPlay: true,
     responsive: true,
-    stretch: $scope.stretchModes[0],
+    stretch: $scope.stretchModes[2],
     sources: $scope.videos[0].sources,
     transclude: true,
     theme: {
       url: "css/themes/default/videogular.css"
-    },
-    plugins: {
-      poster: {
-        url: "assets/images/poster.png"
-      },
-      memeAds: {
-        vid: 'P9EzRfvqOF'
-      }
     }
   };
 
@@ -68,6 +60,7 @@ var PlayerCtrl = function ($scope, $sce, $routeParams, $factory, $controls) {
       $scope.configEpisode(1);
       break;
     }
+
   };
 
   $scope.changeSource = function (index) {
@@ -77,16 +70,19 @@ var PlayerCtrl = function ($scope, $sce, $routeParams, $factory, $controls) {
 
   $scope.configEpisode = function (episode) {
     $scope.id = $scope.episodes[episode].id;
-    $scope.totalTime = $scope.episodes[episode].duration;
     $scope.reperes = $scope.episodes[episode].reperes;
     $scope.changeSource(episode);
-    $scope.injectPictos($scope.reperes);
   }
 
   $scope.onPlayerReady = function (API) {
     $scope.API = API;
-    console.log(API);
     $scope.API.setSize($scope.config.width, $scope.config.height);
+    window.addEventListener('ON_PLAYER_READY', function () {
+      console.log($rootScope.ytplayer.getDuration())
+      $scope.totalTime = $rootScope.ytplayer.getDuration();
+      $scope.injectPictos($scope.reperes);
+      API.play();
+    });
   };
 
   $scope.onCompleteVideo = function () {
@@ -96,6 +92,7 @@ var PlayerCtrl = function ($scope, $sce, $routeParams, $factory, $controls) {
   $scope.onUpdateTime = function (currentTime, totalTime) {
     $scope.currentTime = currentTime;
     $scope.totalTime = totalTime;
+
     $scope.reperes.every(function (repere, index) {
       if (currentTime > repere.timecode && currentTime < repere.timecode + 7 && !$scope.repereIsActive) {
         $scope.currentTheme = repere.theme;
@@ -134,11 +131,13 @@ var PlayerCtrl = function ($scope, $sce, $routeParams, $factory, $controls) {
   $scope.clickPicto = function (evt) {
     var video = document.getElementById($scope.id);
     video.currentTime = $(evt.currentTarget).data('timecode');
+    console.log('!!!!!', video.currentTime)
+    $rootScope.ytplayer.seekTo(video.currentTime);
     $scope.API.play();
     $scope.currentTheme = $(evt.currentTarget).data('theme');
     $scope.currentRepere = $(evt.currentTarget).data('src');
-    $('.repere').fadeIn();
     $('.layer').show();
+    $('.repere').fadeIn();
   };
 
   $scope.showLayer = function (evt) {
@@ -169,6 +168,7 @@ var PlayerCtrl = function ($scope, $sce, $routeParams, $factory, $controls) {
       picto.src = aPicto.url;
       $(picto).data('timecode', aPicto.timecode);
       angular.element('vg-scrubbar').append(picto);
+      console.log(aPicto.timecode, $scope.totalTime)
       angular.element(picto)
         .addClass('picto')
         .css('left', timecode + '%')

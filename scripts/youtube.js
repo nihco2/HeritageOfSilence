@@ -42,6 +42,11 @@ angular.module("info.vietnamcode.nampnq.videogular.plugins.youtube", [])
 
             function onVideoReady() {
               var videoSize = API.getSize();
+              $rootScope.ytplayer = ytplayer;
+              var playerReadyEvent = new Event('ON_PLAYER_READY');
+
+              window.dispatchEvent(playerReadyEvent);
+
               ytplayer.setSize(videoSize.width, videoSize.height);
               API.videoElement[0].pause();
               API.videoElement[0].src = false;

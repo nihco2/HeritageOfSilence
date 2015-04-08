@@ -4,12 +4,12 @@
   border: none;
   border-radius: 0;
   height: 70px;
-  font-size: 40px;
+  font-size: 30px;
   font-weight: 100;
   .nav {
     width: 100%;
     .col-md-2 {
-      width: 15%;
+      width: 12%;
     }
     .col-md-1 {
       width: 10%;
@@ -32,10 +32,10 @@
       text-align: center;
       height: 70px;
       &.episodes {
-        min-width: 440px;
+        width: 470px;
       }
       &.reperes {
-        min-width: 336px;
+        width: 290px;
       }
       &:hover {
         background: $grayDark;
@@ -91,7 +91,8 @@
           img {
             border: none;
           }
-          .repere-text, .repere-picto {
+          .repere-text,
+          .repere-picto {
             height: 40px;
           }
         }
