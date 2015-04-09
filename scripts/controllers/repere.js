@@ -51,7 +51,7 @@ var RepereCtrl = function ($scope, $sce, $routeParams, $factory, $rootScope) {
       if (repere.title === $routeParams.repere) {
         $scope.config.sources = [{
           src: $sce.trustAsResourceUrl(repere.src),
-          type: "video/mp4"
+          type: "video/youtube"
         }]
       }
     });

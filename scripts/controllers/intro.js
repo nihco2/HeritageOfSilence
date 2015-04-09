@@ -19,7 +19,7 @@ var IntroCtrl = function ($scope, $sce, $routeParams, $rootScope, $controls) {
 
   $scope.videos = [{
     sources: [{
-      src: $sce.trustAsResourceUrl("https://www.youtube.com/watch?v=BKNxdipHcR8"),
+      src: $sce.trustAsResourceUrl("https://www.youtube.com/watch?v=hRc2Vv92jF4"),
       type: "video/youtube"
     }]
   }];

@@ -31,8 +31,13 @@ var PlayerCtrl = function ($scope, $sce, $routeParams, $factory, $rootScope) {
     }]
   }, {
     sources: [{
-      src: $sce.trustAsResourceUrl("assets/videos/teaser.mp4"),
-      type: "video/mp4"
+      src: $sce.trustAsResourceUrl("https://www.youtube.com/watch?v=0oZVKXpd1VQ"),
+      type: "video/youtube"
+    }]
+  }, {
+    sources: [{
+      src: $sce.trustAsResourceUrl("https://www.youtube.com/watch?v=0oZVKXpd1VQ"),
+      type: "video/youtube"
     }]
   }];
 
@@ -51,16 +56,17 @@ var PlayerCtrl = function ($scope, $sce, $routeParams, $factory, $rootScope) {
     }
   };
 
-  $scope.initEpisodes = function () {
-    switch ($routeParams.episode) {
-    case 'ep1':
-      $scope.configEpisode(0);
-      break;
-    default:
-      $scope.configEpisode(1);
-      break;
-    }
-
+  $scope.initEpisodes = function (episodes) {
+    episodes.forEach(function (episode, index) {
+      if (episode.id === $routeParams.episode) {
+        $scope.id = episode.id;
+        $scope.reperes = episode.reperes;
+        $scope.config.sources = [{
+          src: $sce.trustAsResourceUrl(episode.src),
+          type: "video/youtube"
+        }];
+      }
+    });
   };
 
   $scope.changeSource = function (index) {
@@ -69,19 +75,21 @@ var PlayerCtrl = function ($scope, $sce, $routeParams, $factory, $rootScope) {
 
 
   $scope.configEpisode = function (episode) {
+    console.log(episode);
     $scope.id = $scope.episodes[episode].id;
     $scope.reperes = $scope.episodes[episode].reperes;
-    $scope.changeSource(episode);
   }
 
   $scope.onPlayerReady = function (API) {
     $scope.API = API;
     $scope.API.setSize($scope.config.width, $scope.config.height);
     window.addEventListener('ON_PLAYER_READY', function () {
-      console.log($rootScope.ytplayer.getDuration())
+      $scope.initEpisodes($scope.episodes);
+      //$scope.config.sources = $scope.videos[1].sources;
       $scope.totalTime = $rootScope.ytplayer.getDuration();
       $scope.injectPictos($scope.reperes);
-      API.play();
+      $('.play').trigger('click');
+      //API.play();
     });
   };
 
@@ -131,7 +139,6 @@ var PlayerCtrl = function ($scope, $sce, $routeParams, $factory, $rootScope) {
   $scope.clickPicto = function (evt) {
     var video = document.getElementById($scope.id);
     video.currentTime = $(evt.currentTarget).data('timecode');
-    console.log('!!!!!', video.currentTime)
     $rootScope.ytplayer.seekTo(video.currentTime);
     $scope.API.play();
     $scope.currentTheme = $(evt.currentTarget).data('theme');
@@ -164,11 +171,10 @@ var PlayerCtrl = function ($scope, $sce, $routeParams, $factory, $rootScope) {
     $scope.pictosReady = true;
     pictos.forEach(function (aPicto) {
       var picto = new Image();
-      var timecode = (aPicto.timecode / $scope.totalTime) * 80;
+      var timecode = (aPicto.timecode / $scope.totalTime) * 60;
       picto.src = aPicto.url;
       $(picto).data('timecode', aPicto.timecode);
       angular.element('vg-scrubbar').append(picto);
-      console.log(aPicto.timecode, $scope.totalTime)
       angular.element(picto)
         .addClass('picto')
         .css('left', timecode + '%')
@@ -181,7 +187,6 @@ var PlayerCtrl = function ($scope, $sce, $routeParams, $factory, $rootScope) {
 
   promise.then(function (data) {
     $scope.episodes = data.episodes;
-    $scope.initEpisodes();
   }).catch(function (err) {
     console.log(err)
   });

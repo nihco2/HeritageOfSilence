@@ -55,8 +55,9 @@ angular.module("info.vietnamcode.nampnq.videogular.plugins.youtube", [])
               function updateTime() {
                 scope.$parent.$broadcast(VG_EVENTS.ON_UPDATE_TIME, [ytplayer.getCurrentTime(), ytplayer.getDuration()]);
                 var updateTimeCallbackFuncName = angular.element(API.videogularElement).attr('vg-update-time');
-                if (updateTimeCallbackFuncName)
+                if (updateTimeCallbackFuncName && API.videoElement) {
                   API.videoElement.scope()[updateTimeCallbackFuncName](ytplayer.getCurrentTime(), ytplayer.getDuration());
+                }
               }
               updateTimer = setInterval(updateTime, 600);
 
