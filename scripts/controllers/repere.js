@@ -26,8 +26,8 @@ var RepereCtrl = function ($scope, $sce, $routeParams, $factory, $rootScope) {
 
   $scope.videos = [{
     sources: [{
-      src: $sce.trustAsResourceUrl("assets/videos/rep_1.mp4"),
-      type: "video/mp4"
+      src: $sce.trustAsResourceUrl("https://www.youtube.com/watch?v=zOYAbTfnPag"),
+      type: "video/youtube"
     }]
   }];
 
@@ -46,13 +46,15 @@ var RepereCtrl = function ($scope, $sce, $routeParams, $factory, $rootScope) {
     }
   };
 
-  $scope.initReperes = function () {
-    $scope.reperes.forEach(function (repere, index) {
-      if (repere.title === $routeParams.repere) {
+  $scope.initEpisodes = function (episodes) {
+    episodes.forEach(function (episode, index) {
+      if (episode.title === $routeParams.repere) {
+        $scope.title = episode.title;
+        $scope.reperes = episode.reperes;
         $scope.config.sources = [{
-          src: $sce.trustAsResourceUrl(repere.src),
+          src: $sce.trustAsResourceUrl(episode.src),
           type: "video/youtube"
-        }]
+        }];
       }
     });
   };
@@ -60,7 +62,41 @@ var RepereCtrl = function ($scope, $sce, $routeParams, $factory, $rootScope) {
   $scope.onPlayerReady = function (API) {
     $scope.API = API;
     $scope.API.setSize($scope.config.width, $scope.config.height);
+    window.addEventListener('ON_PLAYER_READY', function () {
+      $scope.initEpisodes($scope.reperes);
+      $scope.totalTime = $rootScope.ytplayer.getDuration();
+      $('.play').trigger('click');
+    });
   };
+
+  $scope.onUpdateTime = function (currentTime, totalTime) {
+    $scope.currentTime = currentTime;
+    $scope.totalTime = totalTime;
+    console.log($scope.title);
+    if (currentTime >= totalTime - 1 && currentTime !== 0) {
+      switch ($scope.title) {
+      case 'la-grande-catastrophe':
+        $('#les-restes-de-lepee').trigger('click');
+        break;
+      case 'les-restes-de-lepee':
+        $('#les-infideles').trigger('click');
+        break;
+      case 'les-infideles':
+        $('#les-faussaires').trigger('click');
+        break;
+      case 'les-faussaires':
+        $('#des-ames-errantes').trigger('click');
+        break;
+      case 'des-ames-errantes':
+        $('#la-langues-assassinee').trigger('click');
+        break;
+      case 'la-langues-assassinee':
+        $('.navbar-brand').trigger('click');
+        break;
+      }
+
+    }
+  }
 
   $scope.onCompleteVideo = function () {
     $scope.isCompleted = true;
@@ -77,13 +113,13 @@ var RepereCtrl = function ($scope, $sce, $routeParams, $factory, $rootScope) {
 
   promise.then(function (data) {
     $scope.reperes = data.reperes;
-    $scope.initReperes();
   }).catch(function (err) {
     console.log(err)
   });
 
   angular.element(document).ready(function () {
     angular.element('footer').fadeOut();
+    angular.element('header').removeClass('hidden');
   });
 }
 module.exports = RepereCtrl;

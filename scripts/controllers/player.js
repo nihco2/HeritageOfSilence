@@ -9,10 +9,9 @@ var PlayerCtrl = function ($scope, $sce, $routeParams, $factory, $rootScope) {
   $scope.isCompleted = false;
   $scope.API = null;
   $scope.pictosReady = false;
-  $scope.layerIsActive = false;
   $scope.repereIsActive = false;
   $scope.currentAnimation = '';
-
+  $scope.animationIsPlaying = false;
   $scope.stretchModes = [{
     label: "None",
     value: "none"
@@ -27,16 +26,6 @@ var PlayerCtrl = function ($scope, $sce, $routeParams, $factory, $rootScope) {
   $scope.videos = [{
     sources: [{
       src: $sce.trustAsResourceUrl("https://www.youtube.com/watch?v=tm-lPipFtRc"),
-      type: "video/youtube"
-    }]
-  }, {
-    sources: [{
-      src: $sce.trustAsResourceUrl("https://www.youtube.com/watch?v=0oZVKXpd1VQ"),
-      type: "video/youtube"
-    }]
-  }, {
-    sources: [{
-      src: $sce.trustAsResourceUrl("https://www.youtube.com/watch?v=0oZVKXpd1VQ"),
       type: "video/youtube"
     }]
   }];
@@ -69,28 +58,20 @@ var PlayerCtrl = function ($scope, $sce, $routeParams, $factory, $rootScope) {
     });
   };
 
-  $scope.changeSource = function (index) {
-    $scope.config.sources = $scope.videos[index].sources;
-  };
-
-
-  $scope.configEpisode = function (episode) {
-    console.log(episode);
-    $scope.id = $scope.episodes[episode].id;
-    $scope.reperes = $scope.episodes[episode].reperes;
-  }
-
   $scope.onPlayerReady = function (API) {
+
     $scope.API = API;
     $scope.API.setSize($scope.config.width, $scope.config.height);
+
     window.addEventListener('ON_PLAYER_READY', function () {
+
       $scope.initEpisodes($scope.episodes);
-      //$scope.config.sources = $scope.videos[1].sources;
+
       $scope.totalTime = $rootScope.ytplayer.getDuration();
       $scope.injectPictos($scope.reperes);
       $('.play').trigger('click');
       //API.play();
-    });
+    }, true);
   };
 
   $scope.onCompleteVideo = function () {
@@ -100,28 +81,46 @@ var PlayerCtrl = function ($scope, $sce, $routeParams, $factory, $rootScope) {
   $scope.onUpdateTime = function (currentTime, totalTime) {
     $scope.currentTime = currentTime;
     $scope.totalTime = totalTime;
+    if (currentTime >= totalTime - 1 && currentTime !== 0) {
+      switch ($scope.id) {
+      case 'ep1':
+        $('#ep2').trigger('click');
+        break;
+      case 'ep2':
+        $('#ep3').trigger('click');
+        break;
+      case 'ep3':
+        $('#ep4').trigger('click');
+        break;
+      case 'ep4':
+        $('#ep5').trigger('click');
+        break;
+      case 'ep5':
+        $('#ep6').trigger('click');
+        break;
+      case 'ep6':
+        $('.navbar-brand').trigger('click');
+        break;
+      }
+
+    }
 
     $scope.reperes.every(function (repere, index) {
       if (currentTime > repere.timecode && currentTime < repere.timecode + 7 && !$scope.repereIsActive) {
+        $('.layer,.repere').fadeIn();
         $scope.currentTheme = repere.theme;
         $scope.currentAnimation = repere.anim;
         $scope.currentRepere = repere.src;
         $scope.repereIsActive = true;
-        $('.repere').fadeIn();
+        setTimeout(function () {
+          if (!$scope.animationIsPlaying) {
+            $scope.repereIsActive = false;
+            $('.layer,.repere').fadeOut();
+            $scope.currentRepere = '';
+          }
+        }, 7000);
         return false;
-      } else if (currentTime < repere.timecode || currentTime > repere.timecode + 7) {
-        if ($scope.repereIsActive && $scope.currentTheme != $scope.reperes[1].theme) {
-          $('.repere').fadeOut();
-          $scope.currentRepere = $scope.currentTheme = '';
-          $scope.repereIsActive = false;
-          return true;
-        } else if ($scope.repereIsActive && $scope.currentTheme === $scope.reperes[1].theme && currentTime > $scope.reperes[1].timecode + 7) {
-          $('.repere').fadeOut();
-          $scope.currentRepere = $scope.currentTheme = '';
-          $scope.repereIsActive = false;
-          return true;
-        }
-
+      } else {
         return true;
       }
     });
@@ -137,9 +136,8 @@ var PlayerCtrl = function ($scope, $sce, $routeParams, $factory, $rootScope) {
   };
 
   $scope.clickPicto = function (evt) {
-    var video = document.getElementById($scope.id);
-    video.currentTime = $(evt.currentTarget).data('timecode');
-    $rootScope.ytplayer.seekTo(video.currentTime);
+    $scope.currentTime = $(evt.currentTarget).data('timecode');
+    $rootScope.ytplayer.seekTo($scope.currentTime);
     $scope.API.play();
     $scope.currentTheme = $(evt.currentTarget).data('theme');
     $scope.currentRepere = $(evt.currentTarget).data('src');
@@ -148,7 +146,7 @@ var PlayerCtrl = function ($scope, $sce, $routeParams, $factory, $rootScope) {
   };
 
   $scope.showLayer = function (evt) {
-    $scope.layerIsActive = !$scope.layerIsActive;
+    $scope.animationIsPlaying = true;
     $('#animation').prependTo('.layer').show();
     $('#animation').get(0).play()
     $('.repere').hide();
@@ -158,7 +156,9 @@ var PlayerCtrl = function ($scope, $sce, $routeParams, $factory, $rootScope) {
   }
 
   $scope.hideLayer = function (evt) {
-    $scope.layerIsActive = !$scope.layerIsActive;
+    $scope.animationIsPlaying = false;
+    $scope.repereIsActive = false;
+    $scope.currentRepere = $scope.currentTheme = '';
     $('#animation').prependTo('.layered').hide();
     $('#animation').get(0).pause();
     angular.element('vg-buffering').removeClass('hidden');
@@ -171,7 +171,7 @@ var PlayerCtrl = function ($scope, $sce, $routeParams, $factory, $rootScope) {
     $scope.pictosReady = true;
     pictos.forEach(function (aPicto) {
       var picto = new Image();
-      var timecode = (aPicto.timecode / $scope.totalTime) * 60;
+      var timecode = (aPicto.timecode / $scope.totalTime) * 80;
       picto.src = aPicto.url;
       $(picto).data('timecode', aPicto.timecode);
       angular.element('vg-scrubbar').append(picto);
@@ -193,6 +193,7 @@ var PlayerCtrl = function ($scope, $sce, $routeParams, $factory, $rootScope) {
 
   angular.element(document).ready(function () {
     angular.element('footer').fadeOut();
+    angular.element('header').removeClass('hidden');
   });
 }
 module.exports = PlayerCtrl;

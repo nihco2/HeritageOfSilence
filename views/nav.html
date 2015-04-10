@@ -1,7 +1,7 @@
 <nav data-ng-controller="NavCtrl" class="navbar navbar-default" role="navigation">
   <div class="container-fluid">
     <div class="collapse navbar-collapse">
-      <ul class="nav navbar-nav row">
+      <ul class="nav navbar-nav row dispt">
         <li class="col-md-2 brand">
           <div class="navbar-header">
             <a class="navbar-brand" href="#">L'héritage du silence</a>
@@ -13,7 +13,7 @@
           </a>
           <ul class="dropdown-menu menu-episodes" role="menu" aria-labelledby="dropdownMenu1">
             <li role="presentation" ng-repeat="episode in episodes">
-              <a role="menuitem" tabindex="-1" href="#/player/{{episode.id}}" data-active="{{episode.activate}}">
+              <a role="menuitem" tabindex="-1" href="#/player/{{episode.id}}" data-active="{{episode.activate}}" id="{{episode.id}}">
                 <img class="fl" ng-src="{{episode.activate && episode.on || episode.off}}" alt="{{episode.desc}}" />
                 <span class="fl">
                   <h4>{{episode.title}}</h4>
@@ -29,7 +29,7 @@
           </a>
           <ul class="dropdown-menu menu-reperes" role="menu" aria-labelledby="dropdownMenu1">
             <li role="presentation" ng-repeat="repere in reperes" ng-mouseenter="onMouseOver($event)" ng-mouseleave="onMouseLeave($event)">
-              <a role="menuitem" tabindex="-1" href="#/reperes/{{repere.title}}">
+              <a role="menuitem" tabindex="-1" href="#/reperes/{{repere.title}}" id="{{repere.title}}">
                 <img src="{{repere.picto}}" class="repere-picto" />
                 <img src="{{repere.pictoover}}" class="repere-picto hidden" />
                 <img src="{{repere.text}}" class="repere-text" />
@@ -38,13 +38,13 @@
             </li>
           </ul>
         </li>
-        <li class="col-md-2">
+        <li class="disptc">
           <a class="fontify" href="#/whoarethey">Qui sont-ils ?</a>
         </li>
         <li class="col-md-2">
           <a class="fontify" href="#/about">En savoir plus</a>
         </li>
-        <li class="col-md-1">
+        <li class="disptc">
           <a class="fontify" href="#/credits">Crédits</a>
         </li>
       </ul>

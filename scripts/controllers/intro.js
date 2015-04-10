@@ -39,13 +39,18 @@ var IntroCtrl = function ($scope, $sce, $routeParams, $rootScope, $controls) {
     }
   };
 
+  $scope.onUpdateTime = function (currentTime, totalTime) {
+    if (currentTime >= totalTime - 1) {
+      $('#ep1').trigger('click');
+    }
+  }
 
   $scope.onPlayerReady = function (API) {
+    console.log(window.location);
     $scope.API = API;
     $scope.API.setSize($scope.config.width, $scope.config.height);
-    API.play();
     window.addEventListener('ON_PLAYER_READY', function () {
-      API.play();
+      $('.play').trigger('click');
     });
   };
 
@@ -64,6 +69,8 @@ var IntroCtrl = function ($scope, $sce, $routeParams, $rootScope, $controls) {
 
   angular.element(document).ready(function () {
     angular.element('footer').fadeOut();
+    angular.element('header').removeClass('hidden');
+
   });
 }
 module.exports = IntroCtrl;

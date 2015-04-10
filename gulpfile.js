@@ -200,9 +200,9 @@ gulp.task('watch', ['lint'], function () {
     'assets'
   ]);
 
-  //gulp.watch(['**/*.html'], [
-  //'views'
-  //]);
+  gulp.watch(['**/*.html'], [
+    'views'
+  ]);
 
   //gulp.watch('./dist/**').on('change', refresh.changed);
 
