@@ -6,13 +6,22 @@
   height: 70px;
   font-size: 30px;
   font-weight: 100;
+  .navbar-collapse {
+    padding: 0;
+  }
   .nav {
     width: 100%;
+    .burger {
+      cursor: pointer;
+    }
     .col-md-2 {
       width: 12%;
     }
     .col-md-1 {
       width: 10%;
+    }
+    .menu-responsive {
+      display: none;
     }
     a {
       color: $gray;
@@ -25,14 +34,14 @@
       }
       &[data-active="false"] {
         pointer-events: none;
+        cursor: auto;
       }
     }
     li {
-      cursor: pointer;
       text-align: center;
       height: 70px;
       &.episodes {
-        width: 470px;
+        width: 450px;
       }
       &.reperes {
         width: 290px;
@@ -48,7 +57,7 @@
         border: none;
       }
       &.brand {
-        width: 140px;
+        width: 130px;
       }
       &.dropdown:hover > ul.dropdown-menu {
         display: block;

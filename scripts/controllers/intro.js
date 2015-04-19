@@ -63,14 +63,20 @@ var IntroCtrl = function ($scope, $sce, $routeParams, $rootScope, $controls) {
   };
 
   $scope.onUpdateSize = function (width, height) {
+    width = window.innerWidth;
+    height = window.innerHeight - $('header').height();
     $scope.config.width = width;
     $scope.config.height = height;
   };
 
+
+
   angular.element(document).ready(function () {
     angular.element('footer').fadeOut();
-    angular.element('header').removeClass('hidden');
-
+    angular.element('header,.skip').removeClass('hidden');
+    $('.skip').on('click', function () {
+      $('#ep1').trigger('click');
+    });
   });
 }
 module.exports = IntroCtrl;

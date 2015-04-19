@@ -1,8 +1,11 @@
 <div class="layered">
-  <video src="{{currentAnimation}}" id="animation" ng-click="hideLayer()"></video>
   <videogular vg-player-ready="onPlayerReady" vg-complete="onCompleteVideo" vg-update-time="onUpdateTime" vg-update-size="onUpdateSize" vg-update-volume="onUpdateVolume" vg-update-state="onUpdateState" vg-width="config.width" vg-height="config.height" vg-theme="config.theme.url" vg-autoplay="config.autoPlay" vg-stretch="config.stretch.value" vg-responsive="true">
     <div class="layer">
-      <img class="repere" src="{{currentRepere}}" ng-click="showLayer()" />
+      <div class="repere">
+        <img class="repereTitle" src="{{titleSrc}}" />
+        <img src="{{currentRepere}}" ng-click="showLayer($event)" />
+      </div>
+      <a class="close" ng-click="hideLayer()"></a>
     </div>
     <video vg-src="config.sources" preload='metadata' id="{{id}}" class="video-tag"></video>
     <vg-youtube></vg-youtube>
@@ -20,5 +23,6 @@
       </vg-volume>
       <vg-fullscreenButton vg-enter-full-screen-icon="config.theme.enterFullScreenIcon" vg-exit-full-screen-icon="config.theme.exitFullScreenIcon"></vg-fullscreenButton>
     </vg-controls>
+    <a class="skip hidden" ng-click "skipIntro()"></a>
   </videogular>
 </div>

@@ -31,9 +31,20 @@
     margin-top: -300px;
     display: none;
     cursor: pointer;
+    width: 420px;
   }
 }
 
-.overlayPlayContainer.addPictoLayer {
-  background: url('../../../assets/images/Calque_Droite_RollOver.png') no-repeat center;
+.skip {
+  background: url('../../../assets/images/bt_passerintro_sprite.png') no-repeat 0px 0px;
+  cursor: pointer;
+  &:hover {
+    background-position-y: -60px;
+  }
+  position: absolute;
+  bottom: 40px;
+  right: 20px;
+  width: 189px;
+  height: 60px;
+  z-index: 4;
 }

@@ -42,8 +42,16 @@ angular.module("info.vietnamcode.nampnq.videogular.plugins.youtube", [])
 
             function onVideoReady() {
               var videoSize = API.getSize();
+              var ua = window.navigator.userAgent;
+              var msie = ua.indexOf("MSIE ");
               $rootScope.ytplayer = ytplayer;
-              var playerReadyEvent = new Event('ON_PLAYER_READY');
+
+              if (!msie) {
+                var playerReadyEvent = new Event('ON_PLAYER_READY');
+              } else {
+                playerReadyEvent = document.createEvent("Event");
+                playerReadyEvent.initEvent("ON_PLAYER_READY", true, false);
+              }
 
               window.dispatchEvent(playerReadyEvent);
 

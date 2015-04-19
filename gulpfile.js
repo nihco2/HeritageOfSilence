@@ -75,7 +75,7 @@ gulp.task('styles', function () {
       }
     }))
     // Optionally add autoprefixer
-    .pipe(autoprefixer('last 2 versions', '> 1%', 'ie 8'))
+    //.pipe(autoprefixer('last 2 versions', '> 1%', 'ie 8'))
     // These last two should look familiar now :)
     .pipe(gulp.dest('dist/css/'));
 });

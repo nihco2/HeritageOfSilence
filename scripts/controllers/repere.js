@@ -62,7 +62,9 @@ var RepereCtrl = function ($scope, $sce, $routeParams, $factory, $rootScope) {
   $scope.onPlayerReady = function (API) {
     $scope.API = API;
     $scope.API.setSize($scope.config.width, $scope.config.height);
+    $('.content').addClass('invisible');
     window.addEventListener('ON_PLAYER_READY', function () {
+      $('.content').removeClass('invisible');
       $scope.initEpisodes($scope.reperes);
       $scope.totalTime = $rootScope.ytplayer.getDuration();
       $('.play').trigger('click');
@@ -72,7 +74,7 @@ var RepereCtrl = function ($scope, $sce, $routeParams, $factory, $rootScope) {
   $scope.onUpdateTime = function (currentTime, totalTime) {
     $scope.currentTime = currentTime;
     $scope.totalTime = totalTime;
-    console.log($scope.title);
+
     if (currentTime >= totalTime - 1 && currentTime !== 0) {
       switch ($scope.title) {
       case 'la-grande-catastrophe':
@@ -88,7 +90,8 @@ var RepereCtrl = function ($scope, $sce, $routeParams, $factory, $rootScope) {
         $('#des-ames-errantes').trigger('click');
         break;
       case 'des-ames-errantes':
-        $('#la-langues-assassinee').trigger('click');
+        $('.navbar-brand').trigger('click');
+        //$('#la-langues-assassinee').trigger('click');
         break;
       case 'la-langues-assassinee':
         $('.navbar-brand').trigger('click');
@@ -107,6 +110,8 @@ var RepereCtrl = function ($scope, $sce, $routeParams, $factory, $rootScope) {
   };
 
   $scope.onUpdateSize = function (width, height) {
+    width = window.innerWidth;
+    height = window.innerHeight - $('header').height();
     $scope.config.width = width;
     $scope.config.height = height;
   };
@@ -120,6 +125,7 @@ var RepereCtrl = function ($scope, $sce, $routeParams, $factory, $rootScope) {
   angular.element(document).ready(function () {
     angular.element('footer').fadeOut();
     angular.element('header').removeClass('hidden');
+    $('#nav-main').removeClass('expand');
   });
 }
 module.exports = RepereCtrl;
