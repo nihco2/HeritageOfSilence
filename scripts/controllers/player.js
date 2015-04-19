@@ -91,11 +91,11 @@ var PlayerCtrl = function ($scope, $sce, $routeParams, $factory, $rootScope) {
         $('#ep3').trigger('click');
         break;
       case 'ep3':
-        $('.navbar-brand').trigger('click');
-        //$('#ep4').trigger('click');
+        $('#ep4').trigger('click');
         break;
       case 'ep4':
-        $('#ep5').trigger('click');
+        $('.navbar-brand').trigger('click');
+        //$('#ep5').trigger('click');
         break;
       case 'ep5':
         $('#ep6').trigger('click');
