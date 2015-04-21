@@ -94,11 +94,11 @@ var PlayerCtrl = function ($scope, $sce, $routeParams, $factory, $rootScope) {
         $('#ep4').trigger('click');
         break;
       case 'ep4':
-        $('.navbar-brand').trigger('click');
-        //$('#ep5').trigger('click');
+        $('#ep5').trigger('click');
         break;
       case 'ep5':
-        $('#ep6').trigger('click');
+        $('.navbar-brand').trigger('click');
+        //$('#ep6').trigger('click');
         break;
       case 'ep6':
         $('.navbar-brand').trigger('click');
@@ -205,7 +205,7 @@ var PlayerCtrl = function ($scope, $sce, $routeParams, $factory, $rootScope) {
       var picto = new Image();
       var timecode = (aPicto.timecode / $scope.totalTime) * 70;
       if ($scope.id === 'ep5' || $scope.id === 'ep6') {
-        timecode = (aPicto.timecode / $scope.totalTime) * 50;
+        timecode = (aPicto.timecode / $scope.totalTime) * 60;
       }
       if ($scope.id === 'ep1') {
         timecode = (aPicto.timecode / $scope.totalTime) * 90;

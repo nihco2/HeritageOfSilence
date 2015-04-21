@@ -90,14 +90,15 @@ var RepereCtrl = function ($scope, $sce, $routeParams, $factory, $rootScope) {
         $('#des-ames-errantes').trigger('click');
         break;
       case 'des-ames-errantes':
-        $('.navbar-brand').trigger('click');
-        //$('#la-langues-assassinee').trigger('click');
+        $('#la-langues-assassinee').trigger('click');
         break;
       case 'la-langues-assassinee':
         $('.navbar-brand').trigger('click');
         break;
+      case 'la-parole-liberee':
+        $('.navbar-brand').trigger('click');
+        break;
       }
-
     }
   }
 
